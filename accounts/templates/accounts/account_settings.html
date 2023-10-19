@@ -1,0 +1,88 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    body {
+        background-color: #F5F5F5; /* Light Gray */
+    }
+
+    .profile-pic {
+        max-width: 200px;
+        max-height: 200px;
+        margin: 20px auto 40px auto;
+        border-radius: 100px;
+        border: 2px solid #A0A0A0; /* Mid Gray Border */
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    }
+
+    .card {
+        margin: 20px 15%;
+        padding: 20px;
+        border-radius: 25px;
+        box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+        background-color: #FFFFFF; /* White */
+    }
+
+    .btn-primary {
+        border-radius: 15px;
+        padding: 10px 20px;
+        background-color: #808080; /* Gray */
+        border-color: #666666; /* Darker Gray */
+        color: #FFFFFF; /* White */
+    }
+
+    .form-field {
+        margin-bottom: 20px;
+    }
+
+    .form-field label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #808080; /* Gray */
+    }
+
+    .form-field input, .form-field select, .form-field textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 15px;
+        border: 1px solid #C0C0C0; /* Lighter Gray */
+        box-shadow: inset 0px 0px 5px rgba(0,0,0,0.1);
+        background-color: #EAEAEA; /* Very Light Gray */
+        color: #808080; /* Gray */
+    }
+</style>
+
+<div class="card">
+    {% if request.user.customer.profile_pic %}
+            <img class="profile-pic" src="{{request.user.customer.profile_pic.url}}">
+    {% else %}
+            <img class="profile-pic" src="{% static 'images/default.jpg' %}">
+    {% endif %}
+
+    <div class="card-body">
+        <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-field">
+                <label for="{{ form.name.id_for_label }}">Name</label>
+                {{ form.name }}
+            </div>
+            <div class="form-field">
+                <label for="{{ form.email.id_for_label }}">Email</label>
+                {{ form.email }}
+            </div>
+            <div class="form-field">
+                <label for="{{ form.phone.id_for_label }}">Phone</label>
+                {{ form.phone }}
+            </div>
+            <div class="form-field">
+                <label for="{{ form.profile_pic.id_for_label }}">Profile Picture</label>
+                {{ form.profile_pic }}
+            </div>
+            <input class="btn btn-primary" type="submit" value="Update Information">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

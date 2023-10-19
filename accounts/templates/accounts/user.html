@@ -1,0 +1,73 @@
+{% extends 'accounts/main.html' %}
+{% block content %}
+{% include 'accounts/status.html' %}
+
+<style>
+    /* Global styles */
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .table {
+        border-collapse: collapse;
+        width: 100%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .table th {
+        background-color: #4CAF50;
+        color: white;
+        padding: 8px 12px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .table td {
+        padding: 8px 12px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .table tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .card {
+        border-radius: 5px;
+    }
+</style>
+
+<script>
+    function showOrderDetails(order) {
+        alert(`Product: ${order.product}\nNote: ${order.note}\nDate Ordered: ${order.date_created}\nStatus: ${order.status}`);
+    }
+</script>
+
+<td><a href="javascript:void(0);" onclick="showOrderDetails({ product: '{{order.product}}', note: '{{order.note}}', date_created: '{{order.date_created}}', status: '{{order.status}}' })">{{order.status}}</a></td>
+
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <table class="table table-sm">
+                <tr>
+                    <th>Product</th>
+                    <th>Note</th>
+                    <th>Date Orderd</th>
+                    <th>Status</th>
+                </tr>
+
+                {% for order in orders %}
+
+                <tr>
+                    <td>{{order.product}}</td>
+                    <td>{{order.note}}</td>
+                    <td>{{order.date_created}}</td>
+                    <td>{{order.status}}</td>
+                </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
